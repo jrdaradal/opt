@@ -1,6 +1,7 @@
 package discrete
 
 import (
+	"fmt"
 	"sort"
 	"strings"
 
@@ -21,5 +22,22 @@ func SortedPartition[T any](domain []Value, variableMap []T) SolutionCore {
 		})
 		sort.Strings(partitions)
 		return strings.Join(partitions, "/")
+	}
+}
+
+func LookupValueOrder(p *Problem) SolutionCore {
+	return func(solution *Solution) string {
+		values := solution.Tuple(p)
+		core := make([]string, len(values))
+		lookup := make(map[Value]string)
+		order := 0
+		for i, value := range values {
+			if _, ok := lookup[value]; !ok {
+				lookup[value] = fmt.Sprintf("%d", order)
+				order++
+			}
+			core[i] = lookup[value]
+		}
+		return strings.Join(core, "")
 	}
 }

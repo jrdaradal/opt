@@ -1,0 +1,4 @@
+# Lines: Vertices, Edges, Colors 
+A B C D E F G 
+A-B A-C B-D B-G C-E C-G D-F D-G E-F E-G
+1 2 3 4 5 6

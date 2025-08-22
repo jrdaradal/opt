@@ -1,0 +1,5 @@
+# Lines: Vertices, Edges, Colors 
+# Solution: 3 colors, TVRRVTRVT
+A B C D E F
+A-B A-C A-F B-D B-E C-D C-E D-F E-F
+T V R O

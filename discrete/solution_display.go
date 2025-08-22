@@ -12,6 +12,20 @@ import (
 
 type SolutionDisplay func(*Solution) string
 
+func DisplayValues[V any](p *Problem, valueMap []V) SolutionDisplay {
+	return func(solution *Solution) string {
+		output := fn.Map(p.Variables, func(x int) string {
+			value := solution.Map[x]
+			if valueMap == nil {
+				return fmt.Sprintf("%d", value)
+			} else {
+				return fmt.Sprintf("%v", valueMap[value])
+			}
+		})
+		return strings.Join(output, " ")
+	}
+}
+
 func DisplaySubset[T cmp.Ordered](variableMap []T) SolutionDisplay {
 	return func(solution *Solution) string {
 		subset := fn.Map(solution.AsSubset(), func(x int) T {

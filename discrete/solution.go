@@ -11,6 +11,15 @@ func (s Solution) Values() []Value {
 	return fn.MapValues(s.Map)
 }
 
+// List of values ordered by variable order
+func (s Solution) Tuple(p *Problem) []Value {
+	tuple := make([]Value, len(p.Variables))
+	for i, variable := range p.Variables {
+		tuple[i] = s.Map[variable]
+	}
+	return tuple
+}
+
 // Assumes BooleanDomain {0,1}
 func (s Solution) AsSubset() []Variable {
 	subset := make([]Variable, 0)
