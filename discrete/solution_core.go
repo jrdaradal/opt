@@ -1,7 +1,9 @@
 package discrete
 
 import (
+	"cmp"
 	"fmt"
+	"slices"
 	"sort"
 	"strings"
 
@@ -39,5 +41,20 @@ func LookupValueOrder(p *Problem) SolutionCore {
 			core[i] = lookup[value]
 		}
 		return strings.Join(core, "")
+	}
+}
+
+func MirroredSequence[T any](variableMap []T) SolutionCore {
+	return func(solution *Solution) string {
+		numItems := len(solution.Map)
+		sequence := make([]string, numItems)
+		for x, idx := range solution.Map {
+			sequence[idx] = fmt.Sprintf("%v", variableMap[x])
+		}
+		first, last := sequence[0], sequence[numItems-1]
+		if cmp.Compare(first, last) == 1 {
+			slices.Reverse(sequence)
+		}
+		return strings.Join(sequence, " ")
 	}
 }

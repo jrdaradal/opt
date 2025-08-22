@@ -70,3 +70,13 @@ func DisplayMap[T any, V any](p *Problem, variableMap []T, valueMap []V) Solutio
 		return fn.Wrap(output)
 	}
 }
+
+func DisplaySequence[T any](variableMap []T) SolutionDisplay {
+	return func(solution *Solution) string {
+		sequence := make([]string, len(solution.Map))
+		for x, idx := range solution.Map {
+			sequence[idx] = fmt.Sprintf("%v", variableMap[x])
+		}
+		return strings.Join(sequence, " ")
+	}
+}
