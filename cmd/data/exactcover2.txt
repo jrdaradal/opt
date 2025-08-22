@@ -1,0 +1,5 @@
+# Lines: Universal, Subsets
+1 2 3 4
+O: 1 3
+P: 1 2 3
+E: 2 4

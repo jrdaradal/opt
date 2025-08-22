@@ -1,3 +1,8 @@
+0.1.5 - Exact Cover 
+    x Commit: 2025-08-22 13:13
+    x problem.ExactCover 
+    x problem.newExactCover 
+    x ds.Subsets
 0.1.4 - Edge Coloring 
     x Commit: 2025-08-22 12:50
     x problem.EdgeColoring

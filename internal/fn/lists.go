@@ -11,6 +11,15 @@ func All[T any](items []T, ok func(T) bool) bool {
 	return true
 }
 
+func AllEqual[T comparable](items []T, value T) bool {
+	for _, item := range items {
+		if item != value {
+			return false
+		}
+	}
+	return true
+}
+
 func Map[T any, V any](items []T, convert func(T) V) []V {
 	items2 := make([]V, len(items))
 	for i, item := range items {

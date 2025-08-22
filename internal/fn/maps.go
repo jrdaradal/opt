@@ -25,3 +25,11 @@ func Translate[K comparable, V any](items []K, lookup map[K]V) []V {
 	}
 	return items2
 }
+
+func NewCounter[T comparable](items []T) map[T]int {
+	count := make(map[T]int)
+	for _, item := range items {
+		count[item] = 0
+	}
+	return count
+}

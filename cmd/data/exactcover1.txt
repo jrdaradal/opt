@@ -1,0 +1,9 @@
+# Lines: Universal, Subsets 
+A B C D E F G H I J K L
+S1: A D
+S2: B E
+S3: C F
+S4: D E G H
+S5: G H I J K L
+S6: A B C D F G I
+S7: F K
