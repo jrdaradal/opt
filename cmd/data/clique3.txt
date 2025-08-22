@@ -1,0 +1,4 @@
+# Lines: Vertex Edges
+# Solution: EFGIJ
+A B C D E F G H I J
+A-B A-G A-I B-H B-I B-J C-D C-F C-J D-G D-J E-F E-G E-I E-J F-G F-I F-J G-H G-I G-J H-J I-J
