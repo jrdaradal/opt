@@ -1,6 +1,9 @@
 package discrete
 
-import "github.com/jrdaradal/opt/internal/ds"
+import (
+	"github.com/jrdaradal/opt/internal/ds"
+	"github.com/jrdaradal/opt/internal/fn"
+)
 
 type Score = float64
 type Goal string
@@ -22,4 +25,14 @@ func UniqueValues(solution *Solution) Score {
 	uniqueValues := ds.SetFrom(solution.Values())
 	solution.Score = Score(uniqueValues.Len())
 	return solution.Score
+}
+
+func SumWeightedValues(variables []Variable, value []float64) ObjectiveFunc {
+	return func(solution *Solution) Score {
+		count := solution.Map
+		solution.Score = fn.Sum(fn.Map(variables, func(x Variable) Score {
+			return float64(count[x]) * value[x]
+		}))
+		return solution.Score
+	}
 }

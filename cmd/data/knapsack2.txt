@@ -1,0 +1,5 @@
+# Lines: Capacity, Items, Weight, Value 
+5 
+A   B   C 
+3   1   2
+35  12  20

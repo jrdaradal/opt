@@ -1,3 +1,7 @@
+0.1.9 - Knapsack 
+    x Commit: 2025-08-22 15:24 
+    x problem.Knapsack
+    x problem.newKnapsack
 0.1.8 - Independent Set 
     x Commit: 2025-08-22 15:10
     x problem.IndependentSet 
