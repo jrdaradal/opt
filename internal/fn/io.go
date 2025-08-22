@@ -12,8 +12,7 @@ func ProblemData(name string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	lines := strings.Split(string(data), "\n")
-	lines = Map(lines, strings.TrimSpace)
+	lines := CleanSplit(string(data), "\n")
 	lines = Filter(lines, func(line string) bool {
 		return !strings.HasPrefix(line, "#") && line != ""
 	})

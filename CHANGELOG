@@ -1,3 +1,7 @@
+0.1.20 - Warehouse Location 
+    x Commit: 2025-08-22 19:21
+    x problem.WarehouseLocation 
+    x problem.newWarehouseLocation
 0.1.19 - Vertex Cover 
     x Commit: 2025-08-22 18:57
     x problem.VertexCover 
