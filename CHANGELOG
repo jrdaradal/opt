@@ -1,3 +1,12 @@
+0.1.2 - Bin Packing 
+    x Commit: 2025-08-22 12:39
+    x problem.BinPacking 
+    x problem.newBinPacking 
+    x solution.AsPartitions
+    x solution.PartitionSums 
+    x discrete.UniqueValues 
+    x discrete.SortedPartition 
+    x discrete.DisplayPartitions
 0.1.1 - Activity Selection 
     x Commit: 2025-08-22 12:31
     x problem.ActivitySelection
