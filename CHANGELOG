@@ -1,3 +1,7 @@
+0.1.19 - Vertex Cover 
+    x Commit: 2025-08-22 18:57
+    x problem.VertexCover 
+    x problem.newVertexCover
 0.1.18 - Subset Sum 
     x Commit: 2025-08-22 18:50
     x problem.SubsetSum 

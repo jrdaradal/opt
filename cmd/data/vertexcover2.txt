@@ -1,0 +1,4 @@
+# Lines: Vertex Edges
+# Solution: 2 - AC 
+A B C D
+A-B A-C A-D B-C C-D

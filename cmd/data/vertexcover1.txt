@@ -1,0 +1,4 @@
+# Lines: Vertex Edges
+# Solution: 4 - CEGH 
+A B C D E F G H I
+A-C B-C C-D C-E D-G E-F E-H G-H G-I H-I
