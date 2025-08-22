@@ -1,3 +1,10 @@
+0.1.1 - Activity Selection 
+    x Commit: 2025-08-22 12:31
+    x problem.ActivitySelection
+    x problem.newActivitySelection
+    x solution.AsSubset
+    x discrete.SubsetCount
+    x discrete.DisplaySubset
 0.1.0 - Discrete Optimization
     x Commit: 2025-08-22 12:13
     x discrete.Problem

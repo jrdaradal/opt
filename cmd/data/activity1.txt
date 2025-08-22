@@ -1,0 +1,5 @@
+# Lines: Activities, Start, End 
+# Solution: BFJK
+A   B   C   D   E   F   G   H   I   J   K
+0   1   2   3   3   5   5   6   8   8   12
+6   4   13  8   5   7   9   10  12  11  14
