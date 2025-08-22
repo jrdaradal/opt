@@ -6,8 +6,8 @@ import (
 	"github.com/jrdaradal/opt/internal/fn"
 )
 
-func Clique(name string) *discrete.Problem {
-	graph := newClique(name)
+func IndependentSet(name string) *discrete.Problem {
+	graph := newIndependentSet(name)
 	if graph == nil {
 		return nil
 	}
@@ -25,7 +25,7 @@ func Clique(name string) *discrete.Problem {
 		vertices := fn.Map(solution.AsSubset(), func(x discrete.Variable) string {
 			return graph.Vertices[x]
 		})
-		return graph.IsClique(vertices)
+		return graph.IsIndependentSet(vertices)
 	}
 	p.AddGlobalConstraint(test)
 
@@ -35,7 +35,7 @@ func Clique(name string) *discrete.Problem {
 	return p
 }
 
-func newClique(name string) *ds.Graph {
+func newIndependentSet(name string) *ds.Graph {
 	lines, err := fn.ProblemData(name)
 	if err != nil || len(lines) != 2 {
 		return nil

@@ -1,3 +1,8 @@
+0.1.8 - Independent Set 
+    x Commit: 2025-08-22 15:10
+    x problem.IndependentSet 
+    x problem.newIndependentSet
+    x graph.IsIndependentSet
 0.1.7 - Graph Partition 
     x Commit: 2025-08-22 14:48
     x problem.GraphPartition

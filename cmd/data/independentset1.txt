@@ -1,0 +1,4 @@
+# Line: Vertex Edges 
+# Solution: IM B S 
+B C CM G IM S SCM
+IM-SCM G-S G-C S-C S-SCM C-CM C-SCM SCM-B CM-B SCM-CM

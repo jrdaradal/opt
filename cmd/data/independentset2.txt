@@ -1,0 +1,4 @@
+# Line: Vertex Edges 
+# Solution: 
+A B C D E 
+A-B B-C B-D B-E C-E D-E

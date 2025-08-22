@@ -46,6 +46,16 @@ func (s1 *Set[T]) Diff(s2 *Set[T]) *Set[T] {
 	return s3
 }
 
+func (s1 *Set[T]) Intersection(s2 *Set[T]) *Set[T] {
+	s3 := NewSet[T]()
+	for item := range s1.items {
+		if fn.HasKey(s2.items, item) {
+			s3.Add(item)
+		}
+	}
+	return s3
+}
+
 func AllUnique[T comparable](items []T) bool {
 	return len(items) == SetFrom(items).Len()
 }

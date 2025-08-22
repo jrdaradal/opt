@@ -97,3 +97,14 @@ func (g Graph) IsClique(vertices []Vertex) bool {
 	}
 	return true
 }
+
+func (g Graph) IsIndependentSet(vertices []Vertex) bool {
+	vertexSet := SetFrom(vertices)
+	for _, vertex := range vertices {
+		adjacent := SetFrom(g.AdjacentVertices(vertex))
+		if vertexSet.Intersection(adjacent).Len() != 0 {
+			return false
+		}
+	}
+	return true
+}
