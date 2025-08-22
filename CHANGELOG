@@ -1,3 +1,7 @@
+0.1.17 - Set Cover 
+    x Commit: 2025-08-22 18:42
+    x problem.SetCover 
+    x problem.newSetCover
 0.1.16 - Resource Optimization 
     x Commit: 2025-08-22 18:34
     x problem.ResourceOptimization

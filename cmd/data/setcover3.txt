@@ -1,0 +1,9 @@
+# Lines: Universal, Subsets 
+# Solution: S5, S6 
+1 2 3 4 5 6 7 8 9
+S1: 1 4
+S2: 1 2 3 6 7 9
+S3: 2 3 6 7 9
+S4: 7 8 9
+S5: 1 4 5 6 7
+S6: 2 3 8 9

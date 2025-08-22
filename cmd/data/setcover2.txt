@@ -1,0 +1,8 @@
+# Lines: Universal, Subsets 
+# Solution: ORN, RED
+A B C D E F G H I J K L M N
+VIO: A H
+GRN: B C I J
+BLU: D E F G K L M N
+RED: A B C D E F G 
+ORN: H I J K L M N
