@@ -33,3 +33,14 @@ func NewCounter[T comparable](items []T) map[T]int {
 	}
 	return count
 }
+
+func TallyValues[K, V comparable](items map[K]V, values []V) map[V]int {
+	tally := make(map[V]int, len(values))
+	for _, value := range values {
+		tally[value] = 0
+	}
+	for _, value := range items {
+		tally[value] += 1
+	}
+	return tally
+}

@@ -1,3 +1,7 @@
+0.1.7 - Graph Partition 
+    x Commit: 2025-08-22 14:48
+    x problem.GraphPartition
+    x problem.newGraphPartition 
 0.1.6 - Graph Coloring 
     x Commit: 2025-08-22 14:29
     x problem.GraphColoring 

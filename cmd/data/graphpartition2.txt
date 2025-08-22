@@ -1,0 +1,6 @@
+# Lines: NumPartitions MinPartitionSize Vertex Edges EdgeWeights
+2 
+4
+S A B C D E F T
+S-A S-C S-E A-B A-C A-D B-D B-T C-D C-E C-F D-F D-T E-F F-T
+10 5 15 9 4 15 15 10 8 4 6 15 10 16 10
