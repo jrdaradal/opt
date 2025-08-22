@@ -1,0 +1,8 @@
+# Lines: Limit, Resources, Count, Cost, Value
+# Solution: 
+# Score:  
+10000 
+F       L       Z       J 
+100     400     150     70 
+13      21      17      100 
+6       10      8       40

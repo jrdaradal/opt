@@ -1,0 +1,8 @@
+# Lines: Limit, Resources, Count, Cost, Value
+# Solution: 
+# Score: 67
+18
+S   F   M 
+5   5   5
+8   5   3 
+29  19  8

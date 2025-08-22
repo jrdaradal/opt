@@ -1,0 +1,8 @@
+# Lines: Limit, Resources, Count, Cost, Value
+# Solution: 
+# Score: 113
+70
+A   B   C   D   E 
+10  10  10  10  10 
+12  10  9   8   4
+18  16  14  13  6
