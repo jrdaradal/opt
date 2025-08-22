@@ -1,0 +1,12 @@
+0.1.0 - Discrete Optimization
+    x Commit: 2025-08-22 12:13
+    x discrete.Problem
+    x discrete.Variables 
+    x discrete.Domain 
+    x discrete.Constraint 
+    x discrete.GlobalConstraint
+    x discrete.Goal 
+    x discrete.ObjectiveFunc
+    x discrete.SolutionCore 
+    x discrete.SolutionDisplay
+    x discrete.Solution
