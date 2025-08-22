@@ -24,6 +24,16 @@ func (s *Set[T]) Add(item T) {
 	s.items[item] = true
 }
 
+func (s *Set[T]) Delete(item T) {
+	if fn.HasKey(s.items, item) {
+		delete(s.items, item)
+	}
+}
+
+func (s Set[T]) Contains(item T) bool {
+	return s.items[item]
+}
+
 func (s Set[T]) Len() int {
 	return len(s.items)
 }

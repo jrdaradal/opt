@@ -1,0 +1,5 @@
+# Lines: Vertex Edges EdgeWeights 
+# Solution: AB AC AH CD CF EH FG = 53
+A B C D E F G H
+A-B A-C A-E A-H B-C C-D C-F E-H F-G F-H
+6 5 14 8 12 9 7 3 15 10

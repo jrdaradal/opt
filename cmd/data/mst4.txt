@@ -1,0 +1,5 @@
+# Lines: Vertex Edges EdgeWeights 
+# Solution: AB BC BE DE = 11
+A B C D E
+A-B A-C B-C B-D B-E C-E D-E
+1 7 5 4 3 6 2

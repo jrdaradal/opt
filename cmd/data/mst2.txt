@@ -1,0 +1,5 @@
+# Lines: Vertex Edges EdgeWeights 
+# Solution: AB AC BD = 7
+A B C D
+A-B A-C A-D B-D C-D
+1 4 3 2 5

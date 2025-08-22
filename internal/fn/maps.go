@@ -44,3 +44,11 @@ func TallyValues[K, V comparable](items map[K]V, values []V) map[V]int {
 	}
 	return tally
 }
+
+func BooleanMap[K comparable](items []K, flag bool) map[K]bool {
+	items2 := make(map[K]bool)
+	for _, item := range items {
+		items2[item] = flag
+	}
+	return items2
+}
