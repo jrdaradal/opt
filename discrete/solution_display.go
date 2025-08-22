@@ -14,7 +14,7 @@ type SolutionDisplay func(*Solution) string
 
 func DisplayValues[V any](p *Problem, valueMap []V) SolutionDisplay {
 	return func(solution *Solution) string {
-		output := fn.Map(p.Variables, func(x int) string {
+		output := fn.Map(p.Variables, func(x Variable) string {
 			value := solution.Map[x]
 			if valueMap == nil {
 				return fmt.Sprintf("%d", value)
@@ -28,7 +28,7 @@ func DisplayValues[V any](p *Problem, valueMap []V) SolutionDisplay {
 
 func DisplaySubset[T cmp.Ordered](variableMap []T) SolutionDisplay {
 	return func(solution *Solution) string {
-		subset := fn.Map(solution.AsSubset(), func(x int) T {
+		subset := fn.Map(solution.AsSubset(), func(x Variable) T {
 			return variableMap[x]
 		})
 		slices.SortFunc(subset, cmp.Compare)
@@ -47,5 +47,26 @@ func DisplayPartitions[T any](domain []Value, variableMap []T) SolutionDisplay {
 			return fn.Wrap(group)
 		})
 		return strings.Join(outputs, " ")
+	}
+}
+
+func DisplayMap[T any, V any](p *Problem, variableMap []T, valueMap []V) SolutionDisplay {
+	return func(solution *Solution) string {
+		output := fn.Map(p.Variables, func(x Variable) string {
+			value := solution.Map[x]
+			var text1, text2 string
+			if variableMap == nil {
+				text1 = fmt.Sprintf("%d", x)
+			} else {
+				text1 = fmt.Sprintf("%v", variableMap[x])
+			}
+			if valueMap == nil {
+				text2 = fmt.Sprintf("%d", value)
+			} else {
+				text2 = fmt.Sprintf("%v", valueMap[value])
+			}
+			return text1 + " = " + text2
+		})
+		return fn.Wrap(output)
 	}
 }

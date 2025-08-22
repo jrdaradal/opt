@@ -1,0 +1,4 @@
+# Lines: Vertices, Edges, Colors
+0 1 2 3
+0-1 0-2 0-3 1-2 2-3
+R G B

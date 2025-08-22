@@ -52,7 +52,7 @@ func (s Solution) AsPartitions(domain []Value) [][]Variable {
 }
 
 func (s Solution) PartitionSums(domain []Value, valueMap []int) []int {
-	return fn.Map(s.AsPartitions(domain), func(partition []int) int {
+	return fn.Map(s.AsPartitions(domain), func(partition []Variable) int {
 		return fn.SumValues(partition, valueMap)
 	})
 }

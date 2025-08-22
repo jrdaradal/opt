@@ -1,3 +1,8 @@
+0.1.6 - Graph Coloring 
+    x Commit: 2025-08-22 14:29
+    x problem.GraphColoring 
+    x problem.newGraphColoring
+    x discrete.DisplayMap
 0.1.5 - Exact Cover 
     x Commit: 2025-08-22 13:13
     x problem.ExactCover 

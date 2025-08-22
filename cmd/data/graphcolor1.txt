@@ -1,0 +1,4 @@
+# Lines: Vertices, Edges, Colors 
+WA NT SA Q NSW V T
+WA-NT WA-SA NT-Q NT-SA SA-Q SA-NSW SA-V Q-NSW NSW-V
+R G B
