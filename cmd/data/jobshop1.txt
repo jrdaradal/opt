@@ -1,0 +1,6 @@
+# List of Machines 
+# Job Lines = Machine:Time for each Task
+A B C
+A:3 B:2 C:2 
+A:2 C:1 B:4 
+B:4 C:3

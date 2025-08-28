@@ -1,0 +1,123 @@
+package problem
+
+import (
+	"slices"
+	"strings"
+
+	"github.com/jrdaradal/opt/discrete"
+	"github.com/jrdaradal/opt/internal/ds"
+	"github.com/jrdaradal/opt/internal/fn"
+)
+
+func JobShop(name string) *discrete.Problem {
+	cfg := newJobShop(name)
+	if cfg == nil {
+		return nil
+	}
+
+	p := discrete.NewProblem(name)
+	p.Goal = discrete.MINIMIZE
+
+	variableID := 0
+	jobTasks := make(map[int][]discrete.Variable)
+	for jobID, job := range cfg.jobs {
+		jobTasks[jobID] = make([]discrete.Variable, 0)
+		for taskID, task := range job.Tasks {
+			first, after := job.TaskMargins(taskID)
+			last := cfg.maxMakespan - after - task.Duration
+			variable := discrete.Variable(variableID)
+			p.Variables = append(p.Variables, variable)
+			p.Domain[variable] = discrete.RangeDomain(first, last)
+			jobTasks[jobID] = append(jobTasks[jobID], variable)
+			variableID++
+		}
+	}
+
+	// 1) Job Tasks in order and no overlap
+	test1 := func(solution *discrete.Solution) bool {
+		for _, variables := range jobTasks {
+			for i := range len(variables) - 1 {
+				curr, next := variables[i], variables[i+1]
+				start1, start2 := solution.Map[curr], solution.Map[next]
+				end1 := start1 + cfg.tasks[curr].Duration
+				// Not in order or has overlap
+				if start2 <= start1 || start2 < end1 {
+					return false
+				}
+			}
+		}
+		return true
+	}
+	p.AddGlobalConstraint(test1)
+
+	// 2) No machine overlap
+	test2 := func(solution *discrete.Solution) bool {
+		machineSched := make(map[string][]ds.TimeRange)
+		for _, machine := range cfg.machines {
+			machineSched[machine] = make([]ds.TimeRange, 0)
+		}
+		for x, start := range solution.Map {
+			task := cfg.tasks[x]
+			sched := ds.TimeRange{start, start + task.Duration}
+			machine := task.Machine
+			machineSched[machine] = append(machineSched[machine], sched)
+		}
+		for _, scheds := range machineSched {
+			slices.SortFunc(scheds, ds.SortByTimeRange)
+			for i := range len(scheds) - 1 {
+				curr, next := scheds[i], scheds[i+1]
+				start1, end1 := curr.Tuple()
+				start2 := next[0]
+				if start2 <= start1 || start2 < end1 {
+					return false
+				}
+			}
+		}
+		return true
+	}
+	p.AddGlobalConstraint(test2)
+
+	p.ObjectiveFunc = func(solution *discrete.Solution) discrete.Score {
+		makespan := 0
+		for x, start := range solution.Map {
+			task := cfg.tasks[x]
+			end := start + task.Duration
+			makespan = max(makespan, end)
+		}
+		solution.Score = discrete.Score(makespan)
+		return solution.Score
+	}
+
+	// TODO
+	// p.SolutionDisplay = discrete.DisplayShopSchedule
+
+	return p
+}
+
+type jobShopCfg struct {
+	machines    []string
+	jobs        []*ds.Job
+	tasks       []*ds.Task
+	maxMakespan int
+}
+
+func newJobShop(name string) *jobShopCfg {
+	lines, err := fn.ProblemData(name)
+	if err != nil || len(lines) < 2 {
+		return nil
+	}
+	cfg := &jobShopCfg{
+		machines: strings.Fields(lines[0]),
+		jobs:     make([]*ds.Job, 0),
+		tasks:    make([]*ds.Task, 0),
+	}
+	totalDuration := 0
+	for jobID, line := range lines[1:] {
+		job := ds.NewJob(line, jobID)
+		cfg.jobs = append(cfg.jobs, job)
+		cfg.tasks = append(cfg.tasks, job.Tasks...)
+		totalDuration += job.TotalDuration()
+	}
+	cfg.maxMakespan = totalDuration
+	return cfg
+}
