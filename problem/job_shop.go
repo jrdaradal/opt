@@ -33,8 +33,8 @@ func JobShop(name string) *discrete.Problem {
 		}
 	}
 
-	// 1) Job Tasks in order and no overlap
-	test1 := func(solution *discrete.Solution) bool {
+	// 1) Job tasks in order and no overlap
+	test := func(solution *discrete.Solution) bool {
 		for _, variables := range jobTasks {
 			for i := range len(variables) - 1 {
 				curr, next := variables[i], variables[i+1]
@@ -48,65 +48,30 @@ func JobShop(name string) *discrete.Problem {
 		}
 		return true
 	}
-	p.AddGlobalConstraint(test1)
+	p.AddGlobalConstraint(test)
 
 	// 2) No machine overlap
-	test2 := func(solution *discrete.Solution) bool {
-		machineSched := make(map[string][]ds.TimeRange)
-		for _, machine := range cfg.machines {
-			machineSched[machine] = make([]ds.TimeRange, 0)
-		}
-		for x, start := range solution.Map {
-			task := cfg.tasks[x]
-			sched := ds.TimeRange{start, start + task.Duration}
-			machine := task.Machine
-			machineSched[machine] = append(machineSched[machine], sched)
-		}
-		for _, scheds := range machineSched {
-			slices.SortFunc(scheds, ds.SortByTimeRange)
-			for i := range len(scheds) - 1 {
-				curr, next := scheds[i], scheds[i+1]
-				start1, end1 := curr.Tuple()
-				start2 := next[0]
-				if start2 <= start1 || start2 < end1 {
-					return false
-				}
-			}
-		}
-		return true
-	}
-	p.AddGlobalConstraint(test2)
+	p.AddGlobalConstraint(noMachineOverlap(cfg))
 
-	p.ObjectiveFunc = func(solution *discrete.Solution) discrete.Score {
-		makespan := 0
-		for x, start := range solution.Map {
-			task := cfg.tasks[x]
-			end := start + task.Duration
-			makespan = max(makespan, end)
-		}
-		solution.Score = discrete.Score(makespan)
-		return solution.Score
-	}
-
-	// TODO
-	// p.SolutionDisplay = discrete.DisplayShopSchedule
+	p.ObjectiveFunc = scheduleMakespan(cfg.tasks)
+	p.SolutionDisplay = discrete.DisplayShopSchedule(cfg.tasks, cfg.machines)
 
 	return p
 }
 
-type jobShopCfg struct {
+type shopSchedCfg struct {
 	machines    []string
 	jobs        []*ds.Job
 	tasks       []*ds.Task
 	maxMakespan int
 }
 
-func newJobShop(name string) *jobShopCfg {
+func newJobShop(name string) *shopSchedCfg {
 	lines, err := fn.ProblemData(name)
 	if err != nil || len(lines) < 2 {
 		return nil
 	}
-	cfg := &jobShopCfg{
+	cfg := &shopSchedCfg{
 		machines: strings.Fields(lines[0]),
 		jobs:     make([]*ds.Job, 0),
 		tasks:    make([]*ds.Task, 0),
@@ -120,4 +85,44 @@ func newJobShop(name string) *jobShopCfg {
 	}
 	cfg.maxMakespan = totalDuration
 	return cfg
+}
+
+func scheduleMakespan(tasks []*ds.Task) discrete.ObjectiveFunc {
+	return func(solution *discrete.Solution) discrete.Score {
+		makespan := 0
+		for x, start := range solution.Map {
+			task := tasks[x]
+			end := start + task.Duration
+			makespan = max(makespan, end)
+		}
+		solution.Score = discrete.Score(makespan)
+		return solution.Score
+	}
+}
+
+func noMachineOverlap(cfg *shopSchedCfg) discrete.ConstraintFunc {
+	return func(solution *discrete.Solution) bool {
+		machineSched := make(map[string][]ds.TimeRange)
+		for _, machine := range cfg.machines {
+			machineSched[machine] = make([]ds.TimeRange, 0)
+		}
+		for x, start := range solution.Map {
+			task := cfg.tasks[x]
+			sched := ds.TimeRange{start, start + task.Duration}
+			machine := task.Machine
+			machineSched[machine] = append(machineSched[machine], sched)
+		}
+		for _, scheds := range machineSched {
+			slices.SortFunc(scheds, ds.SortByStartTime)
+			for i := range len(scheds) - 1 {
+				curr, next := scheds[i], scheds[i+1]
+				start1, end1 := curr.Tuple()
+				start2 := next[0]
+				if start2 <= start1 || start2 < end1 {
+					return false
+				}
+			}
+		}
+		return true
+	}
 }

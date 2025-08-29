@@ -1,6 +1,9 @@
-TODO:
-    - discrete.DisplayShopSchedule
-===========================================
+0.1.22 - Open Shop Scheduling 
+    x Commit: 2025-08-29 23:32
+    x problem.OpenShop 
+    x problem.newOpenShop 
+    x Extract noMachineOverlap function
+    x discrete.DisplayShopSchedule
 0.1.21 - Job Shop Scheduling 
     x Commit: 2025-08-28 22:49
     x problem.JobShop 

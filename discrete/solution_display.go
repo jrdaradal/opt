@@ -7,6 +7,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/jrdaradal/opt/internal/ds"
 	"github.com/jrdaradal/opt/internal/fn"
 )
 
@@ -78,5 +79,40 @@ func DisplaySequence[T any](variableMap []T) SolutionDisplay {
 			sequence[idx] = fmt.Sprintf("%v", variableMap[x])
 		}
 		return strings.Join(sequence, " ")
+	}
+}
+
+func DisplayShopSchedule(tasks []*ds.Task, machines []string) SolutionDisplay {
+	return func(solution *Solution) string {
+		var line string
+		machineSched := make(map[string][]ds.SlotSched)
+		output := make([]string, 0)
+		for x, task := range tasks {
+			start := solution.Map[x]
+			end := start + task.Duration
+			line = fmt.Sprintf("%s - %s - [%d,%d]", task.ID, task.Machine, start, end)
+			output = append(output, line)
+			slot := ds.SlotSched{
+				Start: start,
+				End:   end,
+				Name:  task.ID,
+			}
+			machineSched[task.Machine] = append(machineSched[task.Machine], slot)
+		}
+		for _, machine := range machines {
+			slots := machineSched[machine]
+			if len(slots) == 0 {
+				output = append(output, fmt.Sprintf("%s - NONE", machine))
+			} else {
+				slices.SortFunc(slots, ds.SortBySchedStart)
+				for _, slot := range slots {
+					line = fmt.Sprintf("%s - [%d,%d] - %s", machine, slot.Start, slot.End, slot.Name)
+					output = append(output, line)
+				}
+			}
+		}
+		line = fmt.Sprintf("Makespan: %v", solution.Score)
+		output = append(output, line)
+		return strings.Join(output, "\n")
 	}
 }

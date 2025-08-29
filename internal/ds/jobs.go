@@ -24,6 +24,12 @@ type Task struct {
 	Duration int
 }
 
+type SlotSched struct {
+	Start int
+	End   int
+	Name  string
+}
+
 func NewJob(line string, jobID int) *Job {
 	job := &Job{
 		ID:    jobID,
@@ -63,10 +69,18 @@ func taskDuration(task *Task) int {
 	return task.Duration
 }
 
-func SortByTimeRange(a, b TimeRange) int {
+func SortByStartTime(a, b TimeRange) int {
 	return cmp.Compare(a[0], b[0])
+}
+
+func SortBySchedStart(a, b SlotSched) int {
+	return cmp.Compare(a.Start, b.Start)
 }
 
 func (t TimeRange) Tuple() (int, int) {
 	return t[0], t[1]
+}
+
+func TaskString(machine string, duration string) string {
+	return fmt.Sprintf("%s%s%s", machine, taskGlue, duration)
 }

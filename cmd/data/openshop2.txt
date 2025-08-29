@@ -1,0 +1,8 @@
+# List of Machines 
+# Job Lines = time for each task on the assigned machine
+A   B   C 
+6   3   11
+3   6   2 
+7   12  13 
+4   2   2 
+2   4   7
