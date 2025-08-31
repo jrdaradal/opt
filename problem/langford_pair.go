@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/jrdaradal/opt/discrete"
-	"github.com/jrdaradal/opt/internal/ds"
 	"github.com/jrdaradal/opt/internal/fn"
 )
 
@@ -26,10 +25,7 @@ func LangfordPair(n int) *discrete.Problem {
 	}
 
 	// AllDiff constraint
-	test1 := func(solution *discrete.Solution) bool {
-		return ds.AllUnique(solution.Values())
-	}
-	p.AddGlobalConstraint(test1)
+	p.AddGlobalConstraint(allDiffConstraint)
 
 	// Distance constraint
 	test2 := func(solution *discrete.Solution) bool {

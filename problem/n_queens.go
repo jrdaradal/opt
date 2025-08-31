@@ -19,10 +19,7 @@ func NQueens(n int) *discrete.Problem {
 	}
 
 	// NoRowConflict
-	test1 := func(solution *discrete.Solution) bool {
-		return ds.AllUnique(solution.Values())
-	}
-	p.AddGlobalConstraint(test1)
+	p.AddGlobalConstraint(allDiffConstraint)
 
 	// NoDiagonalConflict
 	test2 := func(solution *discrete.Solution) bool {

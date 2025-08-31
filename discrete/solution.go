@@ -5,6 +5,20 @@ import "github.com/jrdaradal/opt/internal/fn"
 type Solution struct {
 	Map map[Variable]Value
 	Score
+	order []Variable // order of variable assignment
+}
+
+func EmptySolution() *Solution {
+	return &Solution{
+		Map:   make(map[Variable]Value),
+		Score: 0,
+		order: make([]Variable, 0),
+	}
+}
+
+func (s *Solution) Assign(variable Variable, value Value) {
+	s.Map[variable] = value
+	s.order = append(s.order, variable)
 }
 
 func (s Solution) Values() []Value {
@@ -18,6 +32,14 @@ func (s Solution) Tuple(p *Problem) []Value {
 		tuple[i] = s.Map[variable]
 	}
 	return tuple
+}
+
+func (s Solution) AsSequence() []Variable {
+	sequence := make([]Variable, len(s.Map))
+	for variable, idx := range s.Map {
+		sequence[idx] = variable
+	}
+	return sequence
 }
 
 // Assumes BooleanDomain {0,1}

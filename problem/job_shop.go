@@ -1,7 +1,6 @@
 package problem
 
 import (
-	"slices"
 	"strings"
 
 	"github.com/jrdaradal/opt/discrete"
@@ -85,44 +84,4 @@ func newJobShop(name string) *shopSchedCfg {
 	}
 	cfg.maxMakespan = totalDuration
 	return cfg
-}
-
-func scheduleMakespan(tasks []*ds.Task) discrete.ObjectiveFunc {
-	return func(solution *discrete.Solution) discrete.Score {
-		makespan := 0
-		for x, start := range solution.Map {
-			task := tasks[x]
-			end := start + task.Duration
-			makespan = max(makespan, end)
-		}
-		solution.Score = discrete.Score(makespan)
-		return solution.Score
-	}
-}
-
-func noMachineOverlap(cfg *shopSchedCfg) discrete.ConstraintFunc {
-	return func(solution *discrete.Solution) bool {
-		machineSched := make(map[string][]ds.TimeRange)
-		for _, machine := range cfg.machines {
-			machineSched[machine] = make([]ds.TimeRange, 0)
-		}
-		for x, start := range solution.Map {
-			task := cfg.tasks[x]
-			sched := ds.TimeRange{start, start + task.Duration}
-			machine := task.Machine
-			machineSched[machine] = append(machineSched[machine], sched)
-		}
-		for _, scheds := range machineSched {
-			slices.SortFunc(scheds, ds.SortByStartTime)
-			for i := range len(scheds) - 1 {
-				curr, next := scheds[i], scheds[i+1]
-				start1, end1 := curr.Tuple()
-				start2 := next[0]
-				if start2 <= start1 || start2 < end1 {
-					return false
-				}
-			}
-		}
-		return true
-	}
 }
