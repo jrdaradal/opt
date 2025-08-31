@@ -77,3 +77,15 @@ func scheduleMakespan(tasks []*ds.Task) discrete.ObjectiveFunc {
 		return solution.Score
 	}
 }
+
+func countColorChanges[T comparable](colorSequence []T) int {
+	var prevColor T
+	changes := 0
+	for i, currColor := range colorSequence {
+		if i > 0 && prevColor != currColor {
+			changes += 1
+		}
+		prevColor = currColor
+	}
+	return changes
+}

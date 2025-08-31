@@ -34,3 +34,7 @@ func ParseInt(value string) int {
 	number, err := strconv.Atoi(value)
 	return Ternary(err == nil, number, 0)
 }
+
+func IntToString(value int) string {
+	return strconv.Itoa(value)
+}

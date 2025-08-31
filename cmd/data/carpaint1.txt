@@ -1,0 +1,4 @@
+# MaxShift
+# Car Colors
+3
+R B G Y R B G Y R B

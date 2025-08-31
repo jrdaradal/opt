@@ -37,13 +37,7 @@ func BinaryPaintShop(name string) *discrete.Problem {
 			colorSequence[i] = color[x]
 			color[x] = (color[x] + 1) % 2 // flip
 		}
-		prevColor, changes := 0, 0
-		for i, currColor := range colorSequence {
-			if i > 0 && prevColor != currColor {
-				changes += 1
-			}
-			prevColor = currColor
-		}
+		changes := countColorChanges(colorSequence)
 		solution.Score = discrete.Score(changes)
 		return solution.Score
 	}
