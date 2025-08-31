@@ -13,13 +13,13 @@ const taskGlue string = ":"
 type TimeRange [2]int
 
 type Job struct {
-	ID    int
+	ID    string
 	Tasks []*Task
 }
 
 type Task struct {
 	ID       string
-	JobID    int
+	JobID    string
 	Machine  string
 	Duration int
 }
@@ -30,7 +30,7 @@ type SlotSched struct {
 	Name  string
 }
 
-func NewJob(line string, jobID int) *Job {
+func NewJob(line string, jobID string) *Job {
 	job := &Job{
 		ID:    jobID,
 		Tasks: make([]*Task, 0),
@@ -42,13 +42,13 @@ func NewJob(line string, jobID int) *Job {
 	return job
 }
 
-func NewTask(text string, jobID int, taskID int) *Task {
+func NewTask(text string, jobID string, taskID int) *Task {
 	parts := fn.CleanSplit(text, taskGlue)
 	if len(parts) != 2 {
 		return nil
 	}
 	return &Task{
-		ID:       fmt.Sprintf("J%d_T%d", jobID, taskID),
+		ID:       fmt.Sprintf("J%s_T%d", jobID, taskID),
 		JobID:    jobID,
 		Machine:  parts[0],
 		Duration: fn.ParseInt(parts[1]),
@@ -83,4 +83,8 @@ func (t TimeRange) Tuple() (int, int) {
 
 func TaskString(machine string, duration string) string {
 	return fmt.Sprintf("%s%s%s", machine, taskGlue, duration)
+}
+
+func (j Job) String() string {
+	return j.ID
 }

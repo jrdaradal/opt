@@ -1,6 +1,6 @@
 # List of Machines 
 # Job Lines: Machine Time for each Task
 B G Y 
-B:45 Y:10
-G:10 B:20 Y:34
-Y:28 B:12 G:17
+0 = B:45 Y:10
+1 = G:10 B:20 Y:34
+2 = Y:28 B:12 G:17

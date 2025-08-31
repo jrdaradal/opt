@@ -46,12 +46,17 @@ func newOpenShop(name string) *shopSchedCfg {
 		tasks:    make([]*ds.Task, 0),
 	}
 	totalDuration := 0
-	for jobID, line := range lines[1:] {
+	for _, line := range lines[1:] {
+		parts := fn.CleanSplit(line, "=")
+		if len(parts) != 2 {
+			continue
+		}
+		jobID := parts[0]
 		job := &ds.Job{
 			ID:    jobID,
 			Tasks: make([]*ds.Task, 0),
 		}
-		for taskID, d := range strings.Fields(line) {
+		for taskID, d := range strings.Fields(parts[1]) {
 			text := ds.TaskString(cfg.machines[taskID], d)
 			task := ds.NewTask(text, jobID, taskID)
 			job.Tasks = append(job.Tasks, task)

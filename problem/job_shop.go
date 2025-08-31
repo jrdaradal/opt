@@ -76,8 +76,12 @@ func newJobShop(name string) *shopSchedCfg {
 		tasks:    make([]*ds.Task, 0),
 	}
 	totalDuration := 0
-	for jobID, line := range lines[1:] {
-		job := ds.NewJob(line, jobID)
+	for _, line := range lines[1:] {
+		parts := fn.CleanSplit(line, "=")
+		if len(parts) != 2 {
+			continue
+		}
+		job := ds.NewJob(parts[1], parts[0])
 		cfg.jobs = append(cfg.jobs, job)
 		cfg.tasks = append(cfg.tasks, job.Tasks...)
 		totalDuration += job.TotalDuration()

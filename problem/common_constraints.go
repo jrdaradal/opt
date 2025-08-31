@@ -40,7 +40,7 @@ func noMachineOverlap(cfg *shopSchedCfg) discrete.ConstraintFunc {
 
 func noJobTaskOverlap(cfg *shopSchedCfg) discrete.ConstraintFunc {
 	return func(solution *discrete.Solution) bool {
-		jobSched := make(map[int][]ds.TimeRange)
+		jobSched := make(map[string][]ds.TimeRange)
 		for _, job := range cfg.jobs {
 			jobSched[job.ID] = make([]ds.TimeRange, 0)
 		}
