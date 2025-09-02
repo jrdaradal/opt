@@ -29,6 +29,15 @@ func AllTrue(items []bool) bool {
 	return true
 }
 
+func Any[T any](items []T, ok func(T) bool) bool {
+	for _, item := range items {
+		if ok(item) {
+			return true
+		}
+	}
+	return false
+}
+
 func Map[T any, V any](items []T, convert func(T) V) []V {
 	items2 := make([]V, len(items))
 	for i, item := range items {
@@ -75,4 +84,14 @@ func SumValues[T ~int | ~float64](indexes []int, valueMap []T) T {
 	return Sum(Map(indexes, func(x int) T {
 		return valueMap[x]
 	}))
+}
+
+func CountValue[T comparable](items []T, value T) int {
+	count := 0
+	for _, item := range items {
+		if item == value {
+			count += 1
+		}
+	}
+	return count
 }

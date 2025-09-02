@@ -28,7 +28,7 @@ func LangfordPair(n int) *discrete.Problem {
 	p.AddGlobalConstraint(allDiffConstraint)
 
 	// Distance constraint
-	test2 := func(solution *discrete.Solution) bool {
+	test := func(solution *discrete.Solution) bool {
 		index := solution.Map
 		for x := 0; x < len(p.Variables); x += 2 {
 			number := (x / 2) + 1
@@ -39,7 +39,7 @@ func LangfordPair(n int) *discrete.Problem {
 		}
 		return true
 	}
-	p.AddGlobalConstraint(test2)
+	p.AddGlobalConstraint(test)
 
 	p.SolutionCore = discrete.MirroredSequence(numbers)
 	p.SolutionDisplay = discrete.DisplaySequence(numbers)
