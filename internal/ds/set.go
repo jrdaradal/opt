@@ -24,6 +24,12 @@ func (s *Set[T]) Add(item T) {
 	s.items[item] = true
 }
 
+func (s *Set[T]) AddItems(items []T) {
+	for _, item := range items {
+		s.Add(item)
+	}
+}
+
 func (s *Set[T]) Delete(item T) {
 	if fn.HasKey(s.items, item) {
 		delete(s.items, item)

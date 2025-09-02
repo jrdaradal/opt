@@ -1,3 +1,7 @@
+0.1.27 - Scene Allocation 
+    x Commit: 2025-09-22 22:11
+    x problem.SceneAllocation 
+    x problem.newSceneAllocation
 0.1.26 - Car Sequencing 
     x Commit: 2025-09-02 20:46
     x problem.CarSequencing 
